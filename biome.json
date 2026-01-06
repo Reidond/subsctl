@@ -48,6 +48,12 @@
       "indentWidth": 2
     }
   },
+  "css": {
+    "parser": {
+      "cssModules": true,
+      "tailwindDirectives": true
+    }
+  },
   "files": {
     "includes": [
       "**",
@@ -55,7 +61,8 @@
       "!**/dist",
       "!**/.wrangler",
       "!**/*.min.js",
-      "!**/apps/web/src/components/ui"
+      "!**/apps/web/src/components/ui",
+      "!**/*.gen.ts"
     ]
   }
 }
