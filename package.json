@@ -1,0 +1,19 @@
+{
+  "name": "subsctl",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "bun run --filter '*' dev",
+    "build": "bun run --filter '*' build",
+    "typecheck": "bun run --filter '*' typecheck",
+    "test": "bun test",
+    "lint": "bunx biome lint .",
+    "format": "bunx biome format --write .",
+    "check": "bunx biome check ."
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.3.11"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "@subsctl/worker",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "build": "wrangler deploy --dry-run",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit"
+  }
+}
