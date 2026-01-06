@@ -1,10 +1,17 @@
 {
-  "name": "@subsctl/worker",
-  "private": true,
+  "name": "worker",
+  "version": "1.0.50",
   "scripts": {
     "dev": "wrangler dev",
-    "build": "wrangler deploy --dry-run",
     "deploy": "wrangler deploy",
     "typecheck": "tsc --noEmit"
-  }
+  },
+  "dependencies": {
+    "elysia": "latest"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "latest",
+    "wrangler": "latest"
+  },
+  "module": "src/index.js"
 }
