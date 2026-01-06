@@ -33,16 +33,18 @@ This repository is designed to be friendly to automated coding agents and human 
 
 ```
 /
-  src/
+  apps/worker/
+    wrangler.jsonc
+    migrations/          # D1 SQL migrations
     worker.ts            # Worker entrypoint (Elysia compiled handler)
-    server/
+    src/
       app.ts             # Elysia routes/plugins
       auth.ts            # Better Auth instance + wiring
       db.ts              # D1 helpers
       fx.ts              # FX rate fetching and caching
       vectorize.ts       # Vectorize integration
       push.ts            # Web Push helpers
-  web/
+  apps/web/
     src/
       components/        # React components
         ui/              # shadcn/ui components (copy-pasted)
@@ -51,9 +53,7 @@ This repository is designed to be friendly to automated coding agents and human 
     vite.config.ts
     components.json      # shadcn/ui configuration
     tailwind.config.ts
-  migrations/            # D1 SQL migrations
   biome.json             # Biome linter/formatter config
-  wrangler.jsonc
   SPEC.md
   AGENTS.md
 ```
