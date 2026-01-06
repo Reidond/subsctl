@@ -9,6 +9,7 @@ This repository is designed to be friendly to automated coding agents and human 
 **Core stack:**
 
 - Bun (package manager + scripts)
+- Biome (linting + formatting)
 - Elysia (API framework)
 - Better Auth (Google auth)
 - React + Vite (SPA/PWA)
@@ -51,6 +52,7 @@ This repository is designed to be friendly to automated coding agents and human 
     components.json      # shadcn/ui configuration
     tailwind.config.ts
   migrations/            # D1 SQL migrations
+  biome.json             # Biome linter/formatter config
   wrangler.jsonc
   SPEC.md
   AGENTS.md
@@ -66,12 +68,22 @@ If you change the layout, you must update this file and SPEC.md.
   - If needed, proxy `/api/*` to the worker dev port.
 - Typecheck: `bun run typecheck`
 - Tests: `bun run test`
-- Lint/format: `bun run lint` / `bun run format`
+- Lint (Biome): `bun run lint`
+- Format (Biome): `bun run format`
+- Check all (Biome): `bunx biome check .`
 - Add shadcn component: `bunx shadcn@latest add <component>`
 
 If you add scripts, document them here.
 
 ## 5. Coding standards
+
+### Biome (linting & formatting)
+
+- Biome is the single tool for both linting and formatting.
+- Run `bunx biome check .` before committing to catch all issues.
+- Do NOT disable Biome rules without a comment explaining why.
+- Do NOT introduce ESLint or Prettier—Biome replaces both.
+- Format on save is recommended (configure your editor).
 
 ### TypeScript
 
