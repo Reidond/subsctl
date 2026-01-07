@@ -27,13 +27,21 @@ require_cmd python3
 WRANGLER_CONFIG="apps/worker/wrangler.jsonc"
 
 log "Checking D1 database (subsctl)"
-db_id=$(wrangler d1 list --json --config "$WRANGLER_CONFIG" | python3 - <<'PY'
+db_list_output=$(wrangler d1 list --json --config "$WRANGLER_CONFIG" 2>/dev/null) || db_list_output=""
+db_id=$(python3 - <<PY
 import json, sys
-data = json.load(sys.stdin)
-for item in data:
-    if item.get('name') == 'subsctl':
-        print(item.get('uuid',''))
-        sys.exit(0)
+text = '''$db_list_output'''
+if not text.strip():
+    print('')
+    sys.exit(0)
+try:
+    data = json.loads(text)
+    for item in data:
+        if item.get('name') == 'subsctl':
+            print(item.get('uuid',''))
+            sys.exit(0)
+except (json.JSONDecodeError, ValueError):
+    pass
 print('')
 PY
 )
@@ -99,7 +107,7 @@ PY
 
 log "Ensuring Vectorize index"
 if ! out=$(wrangler vectorize create subsctl-index --dimensions=384 --metric=cosine --config "$WRANGLER_CONFIG" 2>&1); then
-  if echo "$out" | grep -qi "already exists"; then
+  if echo "$out" | grep -qiE "already exists|duplicate_name"; then
     warn "Vectorize index already exists"
   else
     fail "Vectorize create failed: $out"
