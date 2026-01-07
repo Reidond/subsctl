@@ -11,6 +11,8 @@ Authentication is handled by Better Auth using Google OAuth/OpenID Connect, with
 
 The app is a **Progressive Web App (PWA)** with push notification support for renewal reminders.
 
+Deployment instructions live in `DEPLOYMENT.md`.
+
 ## 2. Goals
 
 ### Product goals (MVP)

@@ -1,3 +1,6 @@
-# React + TypeScript + Vite + shadcn/ui
+# Web App (Vite + React)
 
-This is a template for a new Vite project with React, TypeScript, and shadcn/ui.
+This SPA is built with Vite + React + shadcn/ui.
+
+## Push notifications
+Set `VITE_VAPID_PUBLIC_KEY` at build time (e.g. `apps/web/.env` or CI env). See `DEPLOYMENT.md`.
