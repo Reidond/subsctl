@@ -5,6 +5,9 @@ node_modules/
 dist/
 .wrangler/
 
+# Codex/agent artifacts
+.code/
+
 # Environment
 .env
 .env.local

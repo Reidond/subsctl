@@ -1,7 +1,46 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "subsctl-worker",
-  "main": "src/index.ts",
+  "main": "worker.ts",
   "compatibility_date": "2025-06-01",
-  "compatibility_flags": ["nodejs_compat"]
+  "compatibility_flags": ["nodejs_compat"],
+  "ai": {
+    "binding": "AI"
+  },
+  "assets": {
+    "directory": "../web/dist",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "subsctl",
+      "database_id": "f516bc53-a5d1-4d37-afd6-0e3b1e79019f",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "vectorize": [
+    {
+      "binding": "VECTORIZE",
+      "index_name": "subsctl-index"
+    }
+  ],
+  "queues": {
+    "producers": [
+      {
+        "binding": "EMBEDDINGS_QUEUE",
+        "queue": "subsctl-embeddings"
+      }
+    ],
+    "consumers": [
+      {
+        "queue": "subsctl-embeddings",
+        "max_batch_size": 10
+      }
+    ]
+  },
+  "triggers": {
+    "crons": ["0 0 * * *"]
+  }
 }

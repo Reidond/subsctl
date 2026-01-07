@@ -7,11 +7,13 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "elysia": "latest"
+    "better-auth": "latest",
+    "elysia": "latest",
+    "kysely": "latest",
+    "kysely-d1": "latest"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "latest",
     "wrangler": "latest"
-  },
-  "module": "src/index.js"
+  }
 }
