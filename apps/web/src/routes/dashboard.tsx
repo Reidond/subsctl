@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -64,32 +64,35 @@ function DashboardPage() {
 		to: dateRange.to,
 	})
 	const primaryCurrency = user?.primaryCurrency ?? null
-	const convertAmount = (amountCents: number, currency: string) => {
-		if (!primaryCurrency || !fxRates) {
-			return { amount: amountCents / 100, currency, value: amountCents / 100 }
-		}
-		if (currency === primaryCurrency) {
-			return { amount: amountCents / 100, currency, value: amountCents / 100 }
-		}
-		if (fxRates.base !== 'USD') {
-			return { amount: amountCents / 100, currency, value: amountCents / 100 }
-		}
-		const toPrimary = fxRates.rates[primaryCurrency]
-		const fromBase = fxRates.rates[currency]
-		if (!toPrimary || !fromBase) {
-			return { amount: amountCents / 100, currency, value: amountCents / 100 }
-		}
-		const rate = toPrimary / fromBase
-		const converted = (amountCents * rate) / 100
-		return { amount: converted, currency: primaryCurrency, value: converted }
-	}
+	const convertAmount = useCallback(
+		(amountCents: number, currency: string) => {
+			if (!primaryCurrency || !fxRates) {
+				return { amount: amountCents / 100, currency, value: amountCents / 100 }
+			}
+			if (currency === primaryCurrency) {
+				return { amount: amountCents / 100, currency, value: amountCents / 100 }
+			}
+			if (fxRates.base !== 'USD') {
+				return { amount: amountCents / 100, currency, value: amountCents / 100 }
+			}
+			const toPrimary = fxRates.rates[primaryCurrency]
+			const fromBase = fxRates.rates[currency]
+			if (!toPrimary || !fromBase) {
+				return { amount: amountCents / 100, currency, value: amountCents / 100 }
+			}
+			const rate = toPrimary / fromBase
+			const converted = (amountCents * rate) / 100
+			return { amount: converted, currency: primaryCurrency, value: converted }
+		},
+		[primaryCurrency, fxRates]
+	)
 	const upcomingItems = useMemo(() => {
 		return (upcoming ?? []).slice().sort((a, b) => {
 			const aValue = convertAmount(a.amount_cents, a.currency).value
 			const bValue = convertAmount(b.amount_cents, b.currency).value
 			return bValue - aValue
 		})
-	}, [upcoming, primaryCurrency, fxRates])
+	}, [upcoming, convertAmount])
 
 	const handleWindowChange = (value: number) => {
 		setWindowDays(value)

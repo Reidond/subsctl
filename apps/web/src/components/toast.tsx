@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo, useState } from 'react'
+import { createContext, useCallback, useContext, useMemo, useState } from 'react'
 import { Button } from '@/components/ui/button'
 
 interface ToastItem {
@@ -20,15 +20,15 @@ const ToastContext = createContext<ToastContextValue>({
 export function ToastProvider({ children }: { children: React.ReactNode }) {
 	const [toasts, setToasts] = useState<ToastItem[]>([])
 
-	const push = (toast: Omit<ToastItem, 'id'>) => {
+	const push = useCallback((toast: Omit<ToastItem, 'id'>) => {
 		const id = crypto.randomUUID()
 		setToasts((current) => [...current, { ...toast, id }])
 		setTimeout(() => {
 			setToasts((current) => current.filter((item) => item.id !== id))
 		}, 6000)
-	}
+	}, [])
 
-	const value = useMemo(() => ({ push }), [])
+	const value = useMemo(() => ({ push }), [push])
 
 	return (
 		<ToastContext.Provider value={value}>

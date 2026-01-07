@@ -109,8 +109,11 @@ function NewSubscriptionPage() {
 			<Card className="space-y-6 p-6">
 				<div className="grid gap-4 md:grid-cols-2">
 					<div>
-						<label className="text-xs text-muted-foreground">Name</label>
+						<label htmlFor="sub-name" className="text-xs text-muted-foreground">
+							Name
+						</label>
 						<Input
+							id="sub-name"
 							value={form.state.values.name}
 							onChange={(event) => {
 								form.setFieldValue('name', event.target.value)
@@ -151,15 +154,21 @@ function NewSubscriptionPage() {
 						)}
 					</div>
 					<div>
-						<label className="text-xs text-muted-foreground">Merchant</label>
+						<label htmlFor="sub-merchant" className="text-xs text-muted-foreground">
+							Merchant
+						</label>
 						<Input
+							id="sub-merchant"
 							value={form.state.values.merchant}
 							onChange={(event) => form.setFieldValue('merchant', event.target.value)}
 						/>
 					</div>
 					<div>
-						<label className="text-xs text-muted-foreground">Amount (cents)</label>
+						<label htmlFor="sub-amount" className="text-xs text-muted-foreground">
+							Amount (cents)
+						</label>
 						<Input
+							id="sub-amount"
 							type="number"
 							value={form.state.values.amount_cents}
 							onChange={(event) => form.setFieldValue('amount_cents', Number(event.target.value))}
@@ -167,24 +176,29 @@ function NewSubscriptionPage() {
 						/>
 					</div>
 					<div>
-						<label className="text-xs text-muted-foreground">Currency</label>
+						<label htmlFor="sub-currency" className="text-xs text-muted-foreground">
+							Currency
+						</label>
 						<Input
+							id="sub-currency"
 							value={form.state.values.currency}
 							onChange={(event) => form.setFieldValue('currency', event.target.value.toUpperCase())}
 							maxLength={3}
 						/>
 					</div>
 					<div>
-						<label className="text-xs text-muted-foreground">Cadence</label>
+						<label htmlFor="sub-cadence" className="text-xs text-muted-foreground">
+							Cadence
+						</label>
 						<Select
 							value={`${form.state.values.cadence_unit}:${form.state.values.cadence_count}`}
 							onValueChange={(value) => {
-								const [unit, count] = value.split(':')
-								form.setFieldValue('cadence_unit', unit as any)
+								const [unit, count] = value.split(':') as ['week' | 'month' | 'year', string]
+								form.setFieldValue('cadence_unit', unit)
 								form.setFieldValue('cadence_count', Number(count))
 							}}
 						>
-							<SelectTrigger className="w-full">
+							<SelectTrigger id="sub-cadence" className="w-full">
 								<SelectValue placeholder="Select cadence" />
 							</SelectTrigger>
 							<SelectContent>
@@ -197,8 +211,11 @@ function NewSubscriptionPage() {
 						</Select>
 					</div>
 					<div>
-						<label className="text-xs text-muted-foreground">Next renewal</label>
+						<label htmlFor="sub-renewal" className="text-xs text-muted-foreground">
+							Next renewal
+						</label>
 						<Input
+							id="sub-renewal"
 							type="datetime-local"
 							value={form.state.values.next_renewal_at.slice(0, 16)}
 							onChange={(event) => {
@@ -215,14 +232,16 @@ function NewSubscriptionPage() {
 						/>
 					</div>
 					<div>
-						<label className="text-xs text-muted-foreground">Category</label>
+						<label htmlFor="sub-category" className="text-xs text-muted-foreground">
+							Category
+						</label>
 						<Select
 							value={form.state.values.category_id ?? 'none'}
 							onValueChange={(value) =>
 								form.setFieldValue('category_id', value === 'none' ? null : value)
 							}
 						>
-							<SelectTrigger className="w-full">
+							<SelectTrigger id="sub-category" className="w-full">
 								<SelectValue placeholder="Select category" />
 							</SelectTrigger>
 							<SelectContent>
@@ -237,8 +256,11 @@ function NewSubscriptionPage() {
 					</div>
 				</div>
 				<div>
-					<label className="text-xs text-muted-foreground">Notes</label>
+					<label htmlFor="sub-notes" className="text-xs text-muted-foreground">
+						Notes
+					</label>
 					<Textarea
+						id="sub-notes"
 						value={form.state.values.notes}
 						onChange={(event) => form.setFieldValue('notes', event.target.value)}
 					/>

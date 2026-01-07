@@ -182,13 +182,21 @@ function SettingsPage() {
 					<div className="text-xs text-muted-foreground">{user?.email}</div>
 				</div>
 				<div className="space-y-2">
-					<label className="text-xs text-muted-foreground">Timezone</label>
-					<Input value={timezone} onChange={(event) => setTimezone(event.target.value)} />
+					<label htmlFor="settings-timezone" className="text-xs text-muted-foreground">
+						Timezone
+					</label>
+					<Input
+						id="settings-timezone"
+						value={timezone}
+						onChange={(event) => setTimezone(event.target.value)}
+					/>
 				</div>
 				<div className="space-y-2">
-					<label className="text-xs text-muted-foreground">Primary currency</label>
+					<label htmlFor="settings-currency" className="text-xs text-muted-foreground">
+						Primary currency
+					</label>
 					<Select value={currency} onValueChange={setCurrency}>
-						<SelectTrigger className="w-full">
+						<SelectTrigger id="settings-currency" className="w-full">
 							<SelectValue placeholder="Select currency" />
 						</SelectTrigger>
 						<SelectContent>
@@ -202,7 +210,7 @@ function SettingsPage() {
 					{fxRates?.isStale && <p className="text-xs text-amber-600">FX rates are stale</p>}
 				</div>
 				<div className="space-y-2">
-					<label className="text-xs text-muted-foreground">Push notifications</label>
+					<span className="text-xs text-muted-foreground">Push notifications</span>
 					<Button variant="secondary" onClick={handlePushToggle}>
 						{pushEnabled ? 'Disable push' : 'Enable push'}
 					</Button>
